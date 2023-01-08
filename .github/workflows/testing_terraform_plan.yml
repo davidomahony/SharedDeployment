@@ -14,3 +14,4 @@ jobs:
         uses: ./actions/TerraformPlan
         with:
           directory: terraform
+          tf_version: 0.14.8
