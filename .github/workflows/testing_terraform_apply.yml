@@ -1,0 +1,16 @@
+on: workflow_dispatch
+name: Testing Terraform Apply
+
+jobs:
+  terraform:
+    name: Terraform Apply
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
+
+      - name: Terraform Apply
+        uses: ./actions/TerraformApply
+        with:
+          directory: terraform
