@@ -9,23 +9,29 @@ runs:
   using: "composite"
   steps:
     - name: Checkout
+      shell: bash
       uses: actions/checkout@master
 
     - name: Setup Terraform
+      shell: bash
       uses: hashicorp/setup-terraform@v1
 
     - name: Terraform Format
+      shell: bash
       id: fmt
       run: terraform fmt
 
     - name: Terraform Init
+      shell: bash
       id: init
       run: terraform init
 
     - name: Terraform Validate
+      shell: bash
       id: validate
       run: terraform validate -no-color
 
     - name: Terraform Plan
+      shell: bash
       id: plan
       run: terraform plan -no-color
