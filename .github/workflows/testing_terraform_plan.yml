@@ -1,0 +1,16 @@
+on: workflow_dispatch
+name: Testing Terraform Plan
+
+jobs:
+  terraform:
+    name: Terraform Plan
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
+
+      - name: Terraform Plan
+        uses: ./actions/TerraformPlan
+        with:
+          directory: terraform
