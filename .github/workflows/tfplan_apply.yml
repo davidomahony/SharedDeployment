@@ -46,7 +46,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@master
 
-      - name: Terraform Plan
+      - name: Terraform Apply
         uses: davidomahony/SharedActions/actions/TerraformApply@v0.0.1
         with:
           directory: ${{ inputs.terraform_directory }}
