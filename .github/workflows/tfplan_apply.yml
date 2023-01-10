@@ -1,0 +1,62 @@
+name: Terrfaform Plan & Apply
+
+on:
+  workflow_call:
+    inputs:
+      terraform_directory:
+        required: true
+        type: string
+      terraform_version:
+        required: true
+        type: number
+      environment:
+        required: true
+        type: number
+    secrets:
+      ARM_CLIENT_ID:
+        required: true
+      ARM_CLIENT_SECRET:
+        required: true
+      ARM_SUBSCRIPTION_ID:
+        required: true
+      ARM_TENANT_ID:
+        required: true
+
+env:
+  ARM_CLIENT_ID: ${{ secrets.TF_VAR_CLIENT_ID }}
+  ARM_CLIENT_SECRET: ${{ secrets.TF_VAR_CLIENT_SECRET}}
+  ARM_SUBSCRIPTION_ID: ${{ secrets.TF_VAR_SUBSCRIPTION_ID }}
+  ARM_TENANT_ID: ${{ secrets.TF_VAR_TENANTID }}
+
+jobs:
+  terraform_plan:
+    name: Terraform Plan
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
+
+      - name: Terraform Plan
+        uses: davidomahony/SharedActions/actions/TerraformPlan@v0.0.1
+        with:
+          directory: ${{ inputs.terraform_directory }}
+          tf_version: ${{ inputs.terraform_version }}
+
+  terraform_apply:
+    name: Terraform Apply
+    needs: terraform_plan
+    runs-on: ubuntu-latest
+
+    environment:
+      name: ${{ inputs.environment }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
+
+      - name: Terraform Plan
+        uses: davidomahony/SharedActions/actions/TerraformApply@v0.0.1
+        with:
+          directory: ${{ inputs.terraform_directory }}
+          tf_version: ${{ inputs.terraform_version }}
