@@ -22,18 +22,24 @@ on:
       ARM_TENANT_ID:
         required: true
 
+  env:
+    ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+    ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET}}
+    ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+    ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+
 jobs:
   terraform_plan:
     name: Terraform Plan
     runs-on: ubuntu-latest
 
-    env:
-      ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
-      ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET}}
-      ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-      ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
-
     steps:
+      - name: Show data
+        run: |
+          echo ${{ inputs.terraform_directory }}
+          echo ${{ secrets.ARM_CLIENT_ID}}
+          echo ${{ env.ARM_CLIENT_ID}}
+
       - name: Checkout
         uses: actions/checkout@master
 
@@ -60,12 +66,6 @@ jobs:
     name: Terraform Apply
     needs: wait_for_approval
     runs-on: ubuntu-latest
-
-    env:
-      ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
-      ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET}}
-      ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-      ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
 
     steps:
       - name: Checkout
