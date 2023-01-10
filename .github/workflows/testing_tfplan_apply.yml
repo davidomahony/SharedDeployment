@@ -1,6 +1,10 @@
 on: workflow_dispatch
 name: Testing tfplan_apply
 
+defaults:
+  run:
+    working-directory: ./
+
 jobs:
   tf_plan_and_apply:    
     uses: ./.github/workflows/tfplan_apply.yml
@@ -9,6 +13,3 @@ jobs:
       terraform_version: '0.14.8'
       environment: dev
     secrets: inherit
-    defaults:
-      run:
-        working-directory: ./
