@@ -12,54 +12,39 @@ on:
       environment:
         required: true
         type: string
-      # ARM_CLIENT_ID:
-      #   required: true
-      #   type: string
-      # ARM_CLIENT_SECRET:
-      #   required: true
-      #   type: string
-      # ARM_SUBSCRIPTION_ID:
-      #   required: true
-      #   type: string
-      # ARM_TENANT_ID:
-      #   required: true
-      #   type: string
 
 env:
   ARM_CLIENT_ID: ${{ secrets.TF_VAR_CLIENT_ID }}
-  ARM_CLIENT_SECRET: ${{ secrets.TF_VAR_CLIENT_SECRET }}
+  ARM_CLIENT_SECRET: ${{ secrets.TF_VAR_CLIENT_SECRET}}
   ARM_SUBSCRIPTION_ID: ${{ secrets.TF_VAR_SUBSCRIPTION_ID }}
-  ARM_TENANT_ID: ${{ secrets.TF_VAR_TENANT_ID }}
+  ARM_TENANT_ID: ${{ secrets.TF_VAR_TENANTID }}
 
 jobs:
   terraform_plan:
-    defaults:
-      run:
-        working-directory: ${{ inputs.terraform_directory }}
-
     name: Terraform Plan
     runs-on: ubuntu-latest
+
     steps:
-    - uses: actions/checkout@v3
-    - uses: hashicorp/setup-terraform@v2
-      with:
-        terraform_version: ${{ inputs.terraform_version }}
+      - name: Checkout
+        uses: actions/checkout@master
 
-    - name: Terraform fmt
-      id: fmt
-      run: terraform fmt -check
-      continue-on-error: true
+      - name: Terraform Plan
+        uses: davidomahony/SharedActions/actions/TerraformPlan@v0.0.1
+        with:
+          directory: ${{ inputs.terraform_directory }}
+          tf_version: ${{ inputs.terraform_version }}
 
-    - name: Terraform Init
-      id: init
-      run: terraform init
+  terraform_apply:
+    name: Terraform Apply
+    needs: wait_for_approval
+    runs-on: ubuntu-latest
 
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
 
-    - name: Terraform Validate
-      id: validate
-      run: terraform validate -no-color
-
-    - name: Terraform Plan
-      id: plan
-      run: terraform plan -no-color
-      continue-on-error: true
+      - name: Terraform Plan
+        uses: davidomahony/SharedActions/actions/TerraformApply@v0.0.1
+        with:
+          directory: ${{ inputs.terraform_directory }}
+          tf_version: ${{ inputs.terraform_version }}
