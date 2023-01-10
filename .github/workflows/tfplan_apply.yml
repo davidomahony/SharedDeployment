@@ -36,7 +36,7 @@ jobs:
 
   terraform_apply:
     name: Terraform Apply
-    needs: wait_for_approval
+    needs: terraform_plan
     runs-on: ubuntu-latest
 
     steps:
