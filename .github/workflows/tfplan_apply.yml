@@ -16,8 +16,9 @@ on:
 jobs:
   terraform_plan:
     defaults:
-    run:
-      working-directory: ${{ inputs.terraform_directory }}
+      run:
+        working-directory: ${{ inputs.terraform_directory }}
+        
     name: Terraform Plan
     runs-on: ubuntu-latest
     steps:
