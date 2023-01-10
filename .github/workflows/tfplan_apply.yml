@@ -12,15 +12,6 @@ on:
       environment:
         required: true
         type: string
-    secrets:
-      ARM_CLIENT_ID:
-        required: true
-      ARM_CLIENT_SECRET:
-        required: true
-      ARM_SUBSCRIPTION_ID:
-        required: true
-      ARM_TENANT_ID:
-        required: true
 
 env:
   ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
