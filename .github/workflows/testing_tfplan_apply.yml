@@ -2,10 +2,13 @@ on: workflow_dispatch
 name: Testing tfplan_apply
 
 jobs:
-  tf_plan_and_apply:
+  tf_plan_and_apply:    
     uses: ./.github/workflows/tfplan_apply.yml
     with:
       terraform_directory: terraform
       terraform_version: '0.14.8'
       environment: dev
     secrets: inherit
+    defaults:
+      run:
+        working-directory: ./
