@@ -8,10 +8,10 @@ on:
         type: string
       terraform_version:
         required: true
-        type: number
+        type: string
       environment:
         required: true
-        type: number
+        type: string
     secrets:
       ARM_CLIENT_ID:
         required: true

@@ -6,7 +6,7 @@ jobs:
     uses: ./.github/workflows/tfplan_apply.yml
     with:
       terraform_directory: terraform
-      terraform_version: 0.14.8
+      terraform_version: '0.14.8'
       environment: dev
     secrets:
       ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID}}
