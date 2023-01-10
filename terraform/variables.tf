@@ -1,3 +1,3 @@
 locals {
-  name = "test"
+  name = "movie-demo"
 }
