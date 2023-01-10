@@ -1,10 +1,6 @@
 on: workflow_dispatch
 name: Testing tfplan_apply
 
-defaults:
-  run:
-    working-directory: ./
-
 jobs:
   tf_plan_and_apply:    
     uses: ./.github/workflows/tfplan_apply.yml
