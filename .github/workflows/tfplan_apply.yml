@@ -43,13 +43,23 @@ jobs:
           directory: ${{ inputs.terraform_directory }}
           tf_version: ${{ inputs.terraform_version }}
 
+  wait_for_approval:
+    name: Waiting for approval
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: trstringer/manual-approval@v1
+        with:
+          secret: ${{ github.TOKEN }}
+          approvers: davidomahony
+          minimum-approvals: 1
+          issue-title: "Terraform Deployment Approval"
+          exclude-workflow-initiator-as-approver: false
+
   terraform_apply:
     name: Terraform Apply
     needs: terraform_plan
     runs-on: ubuntu-latest
-
-    environment:
-      name: ${{ inputs.environment }}
 
     steps:
       - name: Checkout
