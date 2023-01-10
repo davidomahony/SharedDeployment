@@ -39,6 +39,9 @@ jobs:
     needs: terraform_plan
     runs-on: ubuntu-latest
 
+    environment:
+      name: ${{ inputs.environment }}
+
     steps:
       - name: Checkout
         uses: actions/checkout@master
