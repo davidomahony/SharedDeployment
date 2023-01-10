@@ -13,12 +13,11 @@ on:
         required: true
         type: string
 
-defaults:
-  run:
-    working-directory: ${{ inputs.terraform_directory }}
-
 jobs:
   terraform_plan:
+    defaults:
+    run:
+      working-directory: ${{ inputs.terraform_directory }}
     name: Terraform Plan
     runs-on: ubuntu-latest
     steps:
