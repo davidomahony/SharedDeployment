@@ -58,9 +58,6 @@ jobs:
     environment: 
       name: dev
 
-    defaults:
-      working-directory: ${{ inputs.terraform_directory }}
-
     steps:
       - name: Setup Terraform
         uses: hashicorp/terraform-github-actions@master
