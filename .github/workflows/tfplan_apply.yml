@@ -18,7 +18,7 @@ jobs:
     defaults:
       run:
         working-directory: ${{ inputs.terraform_directory }}
-        
+
     name: Terraform Plan
     runs-on: ubuntu-latest
     steps:
@@ -34,7 +34,13 @@ jobs:
 
     - name: Terraform Init
       id: init
-      run: terraform init
+      env:
+        ARM_CLIENT_ID: ${{ secrets.TF_VAR_CLIENT_ID }}
+        ARM_CLIENT_SECRET: ${{ secrets.TF_VAR_CLIENT_SECRET}}
+        ARM_SUBSCRIPTION_ID: ${{ secrets.TF_VAR_SUBSCRIPTION_ID }}
+        ARM_TENANT_ID: ${{ secrets.TF_VAR_TENANTID }}
+      run: terraform init --backend-config
+
 
     - name: Terraform Validate
       id: validate
