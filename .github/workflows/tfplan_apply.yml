@@ -25,12 +25,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Show data
-        run: |
-          echo ${{ inputs.terraform_directory }}
-          echo ${{ secrets.ARM_CLIENT_ID}}
-          echo ${{ env.ARM_CLIENT_ID}}
-
       - name: Checkout
         uses: actions/checkout@master
 
@@ -39,19 +33,6 @@ jobs:
         with:
           directory: ${{ inputs.terraform_directory }}
           tf_version: ${{ inputs.terraform_version }}
-
-  wait_for_approval:
-    name: Waiting for approval
-    needs: terraform_plan
-    runs-on: ubuntu-latest
-    steps:
-      - uses: trstringer/manual-approval@v1
-        with:
-          secret: ${{ github.TOKEN }}
-          approvers: davidomahony
-          minimum-approvals: 1
-          issue-title: "Terraform Deployment Approval"
-          exclude-workflow-initiator-as-approver: false
 
   terraform_apply:
     name: Terraform Apply
