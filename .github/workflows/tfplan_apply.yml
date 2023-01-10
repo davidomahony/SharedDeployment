@@ -12,24 +12,24 @@ on:
       environment:
         required: true
         type: string
-      ARM_CLIENT_ID:
-        required: true
-        type: string
-      ARM_CLIENT_SECRET:
-        required: true
-        type: string
-      ARM_SUBSCRIPTION_ID:
-        required: true
-        type: string
-      ARM_TENANT_ID:
-        required: true
-        type: string
+      # ARM_CLIENT_ID:
+      #   required: true
+      #   type: string
+      # ARM_CLIENT_SECRET:
+      #   required: true
+      #   type: string
+      # ARM_SUBSCRIPTION_ID:
+      #   required: true
+      #   type: string
+      # ARM_TENANT_ID:
+      #   required: true
+      #   type: string
 
 env:
-  ARM_CLIENT_ID: ${{ inputs.ARM_CLIENT_ID }}
-  ARM_CLIENT_SECRET: ${{ inputs.ARM_CLIENT_SECRET }}
-  ARM_SUBSCRIPTION_ID: ${{ inputs.ARM_SUBSCRIPTION_ID }}
-  ARM_TENANT_ID: ${{ inputs.ARM_TENANT_ID }}
+  ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+  ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+  ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+  ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
 
 jobs:
   terraform_plan:
